@@ -1,7 +1,7 @@
 module.exports = function (options) {
   return (
 `import * as React from 'react';
-import type { ApiRequestor } from 'pa-typings';
+import type { ApiRequestor, Table } from 'pa-typings';
 import './styles.css';
 
 interface Props {
