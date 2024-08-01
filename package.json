@@ -1,0 +1,22 @@
+{
+  "name": "external-widget-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "exports": {
+    "default": "./index.js"
+  },
+  "bin": {
+    "external-widget": "./bin/index.js"
+  },
+  "dependencies": {
+    "inquirer": "8.0.0",
+    "jszip": "3.10.1",
+    "uuid": "10.0.0",
+    "webpack": "5.93.0",
+    "yargs": "17.7.2"
+  },
+  "engines": {
+    "node": ">=18.17.1"
+  }
+}
