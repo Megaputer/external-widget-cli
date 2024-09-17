@@ -7,15 +7,20 @@ module.exports = (targetPath) => {
   const entry = {};
   const patterns = [];
   const files = fs.readdirSync(srcPath, { recursive: true }).filter(p => p.includes('info.json'));
-  for (const file of files) {
-    const pathFile = path.resolve(srcPath, file);
-    const guid = require(pathFile).guid;
+  for (const infoJson of files) {
+    const { guid, dependencies } = require(path.resolve(srcPath, infoJson));
+    const dirname = path.dirname(path.resolve(srcPath, infoJson));
     entry[guid] = {
-      'import': `./src/${path.dirname(file)}/model.tsx`,
+      'import': `./src/${path.dirname(infoJson)}/model.tsx`,
       'filename': `${guid}/widget.js`
     };
 
-    patterns.push({ from: pathFile, to: path.resolve(targetPath, guid, 'info.json') });
+    ['info.json', ...dependencies].forEach(f => {
+      patterns.push({
+        from: `${dirname}/${f}`,
+        to: path.resolve(targetPath, guid, f)
+      });
+    });
   }
   return { entry, patterns };
 };

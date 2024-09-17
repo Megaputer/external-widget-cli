@@ -5,6 +5,7 @@ module.exports = function (options) {
   "name": "${options.name}",
   "icon": "${options.icon}",
   "description": "${options.description}",
-  "apprSchema": []
+  "apprSchema": [],
+  "dependencies": []
 }`);
 }
