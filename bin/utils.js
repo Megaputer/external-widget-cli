@@ -8,7 +8,7 @@ module.exports = (targetPath) => {
   const patterns = [];
   const files = fs.readdirSync(srcPath, { recursive: true }).filter(p => p.includes('info.json'));
   for (const infoJson of files) {
-    const { guid, dependencies } = require(path.resolve(srcPath, infoJson));
+    const { guid, dependencies = [] } = require(path.resolve(srcPath, infoJson));
     const dirname = path.dirname(path.resolve(srcPath, infoJson));
     entry[guid] = {
       'import': `./src/${path.dirname(infoJson)}/model.tsx`,
