@@ -2,6 +2,7 @@ const path = require('node:path');
 const process = require('node:process');
 const fs = require('node:fs/promises');
 const { v4: uuidv4 } = require('uuid');
+const os = require('os');
 
 const inquirer = require('inquirer');
 
@@ -10,10 +11,14 @@ const viewTemplate = require('./template/view-template');
 const modelTemplate = require('./template/model-template');
 const styleTemplate = require('./template/style-template');
 
+const writeContent = async (fileName, content) => {
+  await fs.writeFile(fileName, content.replace(/\n/g, os.EOL) + os.EOL);
+};
+
 const createJson = async ({ guid, name = '', icon = '', description = '', path }) => {
   try {
     const content = settingsBuild({ guid, name, icon, description });
-    await fs.writeFile(path, content);
+    await writeContent(path, content);
   } catch (error) {
     console.log(error);
   }
@@ -22,7 +27,7 @@ const createJson = async ({ guid, name = '', icon = '', description = '', path }
 const createComponent = async ({ name, path }) => {
   try {
     const content = viewTemplate({ name });
-    await fs.writeFile(path, content);
+    await writeContent(path, content);
   } catch (error) {
     console.log(error);
   }
@@ -31,7 +36,7 @@ const createComponent = async ({ name, path }) => {
 const createStyle = async ({ path }) => {
   try {
     const content = styleTemplate();
-    await fs.writeFile(path, content);
+    await writeContent(path, content);
   } catch (error) {
     console.log(error);
   }
@@ -40,7 +45,7 @@ const createStyle = async ({ path }) => {
 const createWidget = async ({ name, component, path }) => {
   try {
     const content = modelTemplate({ name, component });
-    await fs.writeFile(path, content);
+    await writeContent(path, content);
   } catch (error) {
     console.log(error);
   }

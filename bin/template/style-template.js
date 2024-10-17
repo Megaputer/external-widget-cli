@@ -15,6 +15,5 @@ return (
 
 .column {
   color: red;
-}
-`)
+}`)
 };
